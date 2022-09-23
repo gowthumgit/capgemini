@@ -1,0 +1,188 @@
+Creating database
+============================
+> use onlineshoppingportal;
+switched to db onlineshoppingportal
+> show dbs
+admin     0.000GB
+bms       0.000GB
+cafeshop  0.000GB
+config    0.000GB
+local     0.000GB
+test      0.000GB
+> db
+onlineshoppingportal
+
+
+creating  and insterting cutomer collection
+===========================
+> db.Customer.insertOne({ customername:"Rajesh", customeremail:"rajesh@gmail.com", customermobno:"9659566570", customerwallet:4000, Address:{ customercity:"bangolore" customerpincode:600102 customeraddress:"3/273-8 pudukottai"}});
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:165
+> db.Customer.insertOne({ customername:"Rajesh", customeremail:"rajesh@gmail.com", customermobno:"9659566570", customerwallet:4000, Address:{ customercity:"bangolore", customerpincode:600102, customeraddress:"3/273-8 pudukottai"}});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d6383dc8d9b32ac282878")
+}
+> db.Customer.insertOne({ customername:"Suresh", customeremail:"suresh@gmail.com", customermobno:"8189943563", customerwallet:400, Address:{ customercity:"Mumbai", customerpincode:610580, customeraddress:"3/273-8 Ghandi street"}});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d63d1dc8d9b32ac282879")
+}
+> db.Customer.insertOne({ customername:"Raju", customeremail:"raju@gmail.com", customermobno:"9659286210", customerwallet:380, Address:{ customercity:"Delhi", customerpincode:600001, customeraddress:"3/273-8 nehru street"}});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d641adc8d9b32ac28287a")
+}
+> db.Customer.insertOne({ customername:"krishna", customeremail:"krishna@gmail.com", customermobno:"8110036810", customerwallet:1380, Address:{ customercity:"Delhi", customerpincode:600012, customeraddress:"3/273-8 patel street"}});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d6454dc8d9b32ac28287b")
+}
+
+
+Creating and insterting orders collection
+========================================
+> db.Orders.insertOne({orderstatus:"Not delivered", orderamount:600});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d6147dc8d9b32ac28286d")
+}
+> db.Orders.insertOne({orderstatus:"Delivered", orderamount:1600});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d6150dc8d9b32ac28286e")
+}
+> db.Orders.insertOne({orderstatus:"Shipped", orderamount:1000});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d615ddc8d9b32ac28286f")
+}
+> db.Orders.insertOne({orderstatus:"Delivered", orderamount:4000});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d616bdc8d9b32ac282870")
+}
+
+
+Creating and insterting Vendors collection
+========================================
+> db.vendor.insertOne({ vendorname:"Ram", vendoremail:"ram@gmail.com",vendormobno:"9659566570", vendorwallet:5000} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d61eadc8d9b32ac282871")
+}
+> db.vendor.insertOne({ vendorname:"Rakesh", vendoremail:"rakesh@gmail.com",vendormobno:"8189943563", vendorwallet:9000} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d6208dc8d9b32ac282872")
+}
+> db.vendor.insertOne({ vendorname:"Lokesh", vendoremail:"lokesh@gmail.com",vendormobno:"9659286810", vendorwallet:2000} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d622bdc8d9b32ac282873")
+}
+> db.vendor.insertOne({ vendorname:"bala", vendoremail:"bala@gmail.com",vendormobno:"9645686810", vendorwallet:2900} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d6249dc8d9b32ac282874")
+}
+
+
+Creating and insterting products collection
+========================================
+
+> db.product.insertOne({productname:"maggi", productcategory:"Food", productprice:50} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d629ddc8d9b32ac282875")
+}
+> db.product.insertOne({productname:"Oneplus7", productcategory:"Mobiles", productprice:25850} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d62e1dc8d9b32ac282876")
+}
+> db.product.insertOne({productname:"Polo tshirt", productcategory:"Dresses", productprice:850} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("632d632ddc8d9b32ac282877")
+}
+
+
+find all customers whose city is 'Delhi'
+===========================================
+> db.Customer.find({"Address.customercity":"Delhi"}).pretty()
+{
+        "_id" : ObjectId("632d641adc8d9b32ac28287a"),
+        "customername" : "Raju",
+        "customeremail" : "raju@gmail.com",
+        "customermobno" : "9659286210",
+        "customerwallet" : 380,
+        "Address" : {
+                "customercity" : "Delhi",
+                "customerpincode" : 600001,
+                "customeraddress" : "3/273-8 nehru street"
+        }
+}
+{
+        "_id" : ObjectId("632d6454dc8d9b32ac28287b"),
+        "customername" : "krishna",
+        "customeremail" : "krishna@gmail.com",
+        "customermobno" : "8110036810",
+        "customerwallet" : 1380,
+        "Address" : {
+                "customercity" : "Delhi",
+                "customerpincode" : 600012,
+                "customeraddress" : "3/273-8 patel street"
+        }
+}
+
+
+
+
+
+find productname,price from products
+===========================================
+
+> db.product.find({},{"productname":1,"productprice":1}).pretty();
+{
+        "_id" : ObjectId("632d629ddc8d9b32ac282875"),
+        "productname" : "maggi",
+        "productprice" : 50
+}
+{
+        "_id" : ObjectId("632d62e1dc8d9b32ac282876"),
+        "productname" : "Oneplus7",
+        "productprice" : 25850
+}
+{
+        "_id" : ObjectId("632d632ddc8d9b32ac282877"),
+        "productname" : "Polo tshirt",
+        "productprice" : 850
+}
+
+
+find orders where orderstatus is 'pending'
+===========================================
+
+> db.Orders.find({"orderstatus":"Not delivered"}).pretty()
+{
+        "_id" : ObjectId("632d6147dc8d9b32ac28286d"),
+        "orderstatus" : "Not delivered",
+        "orderamount" : 600
+}
+
+find all addresses whose pincode is 600012
+===========================================
+> db.Customer.find({"Address.customerpincode":600012}).pretty()
+{
+        "_id" : ObjectId("632d6454dc8d9b32ac28287b"),
+        "customername" : "krishna",
+        "customeremail" : "krishna@gmail.com",
+        "customermobno" : "8110036810",
+        "customerwallet" : 1380,
+        "Address" : {
+                "customercity" : "Delhi",
+                "customerpincode" : 600012,
+                "customeraddress" : "3/273-8 patel street"
+        }
+}
